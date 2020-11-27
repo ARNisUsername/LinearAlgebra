@@ -88,7 +88,6 @@ class LinearAlgebra:
             else:
                 the_matrix = input_two
                 the_vector = input_one
-            original_shape = np.array(the_matrix).shape
             new_matrix = []
             the_matrix = np.ravel(the_matrix)
             counter_vect = 0
@@ -97,7 +96,10 @@ class LinearAlgebra:
                 counter_vect += 1
                 if counter_vect == len(the_vector):
                     counter_vect = 0
-            return np.array(new_matrix).reshape(original_shape[0], original_shape[1])
+            new_vector = []
+            for i in range(0, len(new_matrix), len(the_vector)):
+                new_vector.append(sum(new_matrix[i:i+len(the_vector)]))
+            return new_vector
         
             
 
@@ -110,6 +112,8 @@ class LinearAlgebra:
             print("R: R({} * {})".format(np.array(the_input).shape[0], np.array(the_input).shape[1]))
 
 la = LinearAlgebra()
-the_matrix = la.matrix([[1,2,3,4],[5,6,7,8],[5,6,7,8]])
-the_vector = la.vector([0,0,0,0])
-print(la.multiply(the_matrix, the_vector))
+the_matrix = la.matrix([[1,3],[4,0],[2,1],[0,0]])
+la.print_info(the_matrix)
+the_vector = la.vector([1,5])
+new_vector = la.multiply(the_matrix, the_vector)
+la.print_info(new_vector)
